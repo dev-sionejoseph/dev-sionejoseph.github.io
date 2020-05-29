@@ -25,7 +25,7 @@ public class Seller {
     private String username;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "seller_id")
     private List<Product> products;
 
     public Seller() {

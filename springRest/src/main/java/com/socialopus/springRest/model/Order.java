@@ -10,27 +10,23 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Id
     @Column(name = "products")
     private String products;
 
-    @Id
     @Column(name = "cost")
     private String cost;
 
-    @Id
     @Column(name = "shipping_address")
     private String shippingAddress;
 
-    @Id
     @Column(name = "buyer_id")
-    private String buyerID;
+    private Long buyerID;
 
     public Order(){
         super();
     }
 
-    public Order(Long id, String products, String cost, String shippingAddress, String buyerID) {
+    public Order(Long id, String products, String cost, String shippingAddress, Long buyerID) {
         super();
         this.products = products;
         this.cost = cost;
@@ -70,11 +66,11 @@ public class Order {
         this.shippingAddress = shippingAddress;
     }
 
-    public String getBuyerID() {
+    public Long getBuyerID() {
         return buyerID;
     }
 
-    public void setBuyerID(String buyerID) {
+    public void setBuyerID(Long buyerID) {
         this.buyerID = buyerID;
     }
 }

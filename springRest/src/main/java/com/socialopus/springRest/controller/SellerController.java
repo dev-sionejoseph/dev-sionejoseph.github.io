@@ -16,7 +16,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/social_opus")
+@RequestMapping("/sellers")
 
 public class SellerController {
 
@@ -25,14 +25,14 @@ public class SellerController {
 
 
 
-    @GetMapping("/sellers")
+    @GetMapping("/")
     public List<Seller> getAllSellers(Model model) {
 
         return this.sellerRepository.findAll();
 
     }
 
-    @GetMapping("/sellers/{sellerID)")
+    @GetMapping("/{sellerID)")
     public ResponseEntity<Seller> getSellerById(@PathVariable(value = "sellerID") Long sellerId)
             throws ResourceNotFound {
         Seller seller = sellerRepository.findById(sellerId)
@@ -41,12 +41,12 @@ public class SellerController {
     }
 
 
-    @PostMapping("/sellers")
+    @PostMapping("/")
     public Seller createSeller(@Valid @RequestBody Seller seller) {
         return sellerRepository.save(seller);
     }
 
-    @PutMapping("/sellers/{sellerID}")
+    @PutMapping("/{sellerID}")
     public ResponseEntity<Seller> updateSeller(@PathVariable(value = "sellerID") Long sellerId,
                                                    @Valid @RequestBody Seller newSeller)
             throws ResourceNotFound {
@@ -68,7 +68,7 @@ public class SellerController {
     }
 
 
-    @DeleteMapping("/seller/{sellerID}")
+    @DeleteMapping("/{sellerID}")
     public Map<String, Boolean> deleteSeller(@PathVariable(value = "sellerID") Long sellerID)
             throws ResourceNotFound {
         Seller seller = sellerRepository.findById(sellerID)

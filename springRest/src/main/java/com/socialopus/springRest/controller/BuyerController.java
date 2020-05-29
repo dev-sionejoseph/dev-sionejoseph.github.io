@@ -16,7 +16,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/social_opus")
+@RequestMapping("/buyers")
 
 public class BuyerController {
 
@@ -25,14 +25,14 @@ public class BuyerController {
 
 
 
-    @GetMapping("/buyers")
+    @GetMapping("/")
     public List<Buyer> getAllBuyers(Model model) {
 
         return this.buyerRepository.findAll();
 
     }
 
-    @GetMapping("/buyers/{buyerID)")
+    @GetMapping("/{buyerID)")
     public ResponseEntity<Buyer> getBuyerById(@PathVariable(value = "buyerID") Long buyerId)
             throws ResourceNotFound {
         Buyer buyer = buyerRepository.findById(buyerId)
@@ -41,12 +41,12 @@ public class BuyerController {
     }
 
 
-    @PostMapping("/buyers")
+    @PostMapping("/")
     public Buyer createBuyer(@Valid @RequestBody Buyer buyer) {
         return buyerRepository.save(buyer);
     }
 
-    @PutMapping("/buyers/{buyerID)")
+    @PutMapping("/{buyerID)")
     public ResponseEntity<Buyer> updateBuyer(@PathVariable(value = "buyerID") Long buyerId,
                                                @Valid @RequestBody Buyer newBuyer)
             throws ResourceNotFound {
@@ -68,8 +68,8 @@ public class BuyerController {
     }
 
 
-    @DeleteMapping("/buyers/{buyerID)")
-    public Map<String, Boolean> deleteSeller(@PathVariable(value = "buyerID") Long buyerId)
+    @DeleteMapping("/{buyerID)")
+    public Map<String, Boolean> deleteBuyer(@PathVariable(value = "buyerID") Long buyerId)
             throws ResourceNotFound {
         Buyer buyer = buyerRepository.findById(buyerId)
                 .orElseThrow(()-> new ResourceNotFound("Buyer not found for this id :: " + buyerId));

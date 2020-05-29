@@ -1,7 +1,6 @@
 package com.socialopus.springRest.controller;
 
 import com.socialopus.springRest.exception.ResourceNotFound;
-import com.socialopus.springRest.model.Buyer;
 import com.socialopus.springRest.model.Order;
 import com.socialopus.springRest.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/social_opus")
+@RequestMapping("/orders")
 
 public class OrderController {
 
@@ -26,59 +25,68 @@ public class OrderController {
 
 
 
-    @GetMapping("/orders")
+    @GetMapping("/")
     public List<Order> getAllOrders(Model model) {
 
         return this.orderRepository.findAll();
 
     }
 
-    @GetMapping("/orders/{orderID)")
+    @GetMapping("bybuyer/{buyerID}")
+
+    public List<Order> getOrdersByBuyer(@PathVariable(value = "buyerID") Long buyerId){
+
+        List orderList = orderRepository.findByBuyerId(buyerId);
+
+        return orderList;
+
+    }
+
+    @GetMapping("/{orderID)")
     public ResponseEntity<Order> getOrderById(@PathVariable(value = "orderID") Long orderId)
             throws ResourceNotFound {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new ResourceNotFound("Buyer not found for this id :: " + buyerId));
-        return ResponseEntity.ok().body(buyer);
+                .orElseThrow(() -> new ResourceNotFound("Order not found for this id :: " + orderId));
+        return ResponseEntity.ok().body(order);
     }
 
 
-    @PostMapping("/buyers")
-    public Buyer createBuyer(@Valid @RequestBody Buyer buyer) {
-        return buyerRepository.save(buyer);
+    @PostMapping("/")
+    public Order createOrder(@Valid @RequestBody Order order) {
+        return orderRepository.save(order);
     }
 
-    @PutMapping("/buyers/{buyerID)")
-    public ResponseEntity<Buyer> updateBuyer(@PathVariable(value = "buyerID") Long buyerId,
-                                             @Valid @RequestBody Buyer newBuyer)
+    @PutMapping("/{orderID)")
+    public ResponseEntity<Order> updateOrder(@PathVariable(value = "orderID") Long orderId,
+                                             @Valid @RequestBody Order newOrder)
             throws ResourceNotFound {
-        Buyer buyer = buyerRepository.findById(buyerId)
-                .orElseThrow(()-> new ResourceNotFound("Buyer not found for this id :: " + buyerId));
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(()-> new ResourceNotFound("Buyer not found for this id :: " + orderId));
 
 
-        buyer.setEmail(newBuyer.getEmail());
-        buyer.setFirstName(newBuyer.getFirstName());
-        buyer.setLastName(newBuyer.getLastName());
-        buyer.setUsername(newBuyer.getUsername());
+        order.setProducts(newOrder.getProducts());
+        order.setCost(newOrder.getCost());
+        order.setShippingAddress(newOrder.getShippingAddress());
 
 
-        final Buyer updatedBuyer = buyerRepository.save(buyer);
+        final Order updatedOrder = orderRepository.save(order);
 
 
-        return ResponseEntity.ok(updatedBuyer);
+        return ResponseEntity.ok(updatedOrder);
 
     }
 
 
-    @DeleteMapping("/buyers/{buyerID)")
-    public Map<String, Boolean> deleteSeller(@PathVariable(value = "buyerID") Long buyerId)
+    @DeleteMapping("/{orderID)")
+    public Map<String, Boolean> deleteOrder(@PathVariable(value = "orderID") Long orderId)
             throws ResourceNotFound {
-        Buyer buyer = buyerRepository.findById(buyerId)
-                .orElseThrow(()-> new ResourceNotFound("Buyer not found for this id :: " + buyerId));
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(()-> new ResourceNotFound("Order not found for this id :: " + orderId));
 
-        buyerRepository.delete(buyer);
+        orderRepository.delete(order);
         Map<String, Boolean> response = new HashMap<>();
 
-        response.put("deleted buyer", Boolean.TRUE);
+        response.put("deleted order", Boolean.TRUE);
 
         return response;
 
