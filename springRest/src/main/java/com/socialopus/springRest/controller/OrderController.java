@@ -42,7 +42,7 @@ public class OrderController {
 
     }
 
-    @GetMapping("/{orderID)")
+    @GetMapping("/{orderID}")
     public ResponseEntity<Order> getOrderById(@PathVariable(value = "orderID") Long orderId)
             throws ResourceNotFound {
         Order order = orderRepository.findById(orderId)
@@ -56,7 +56,7 @@ public class OrderController {
         return orderRepository.save(order);
     }
 
-    @PutMapping("/{orderID)")
+    @PutMapping("/{orderID}")
     public ResponseEntity<Order> updateOrder(@PathVariable(value = "orderID") Long orderId,
                                              @Valid @RequestBody Order newOrder)
             throws ResourceNotFound {
@@ -77,7 +77,7 @@ public class OrderController {
     }
 
 
-    @DeleteMapping("/{orderID)")
+    @DeleteMapping("/{orderID}")
     public Map<String, Boolean> deleteOrder(@PathVariable(value = "orderID") Long orderId)
             throws ResourceNotFound {
         Order order = orderRepository.findById(orderId)

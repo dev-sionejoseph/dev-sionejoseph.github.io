@@ -6,8 +6,8 @@ import javax.persistence.*;
 @Table(name = "orders")
 public class Order {
     @Id
+    @GeneratedValue
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "products")

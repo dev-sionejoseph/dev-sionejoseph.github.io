@@ -32,7 +32,7 @@ public class ProductController {
 
     }
 
-    @GetMapping("/{productID)")
+    @GetMapping("/{productID}")
     public ResponseEntity<Product> getProductById(@PathVariable(value = "productID") Long productId)
             throws ResourceNotFound {
         Product product = productRepository.findById(productId)
@@ -56,7 +56,7 @@ public class ProductController {
         return productRepository.save(product);
     }
 
-    @PutMapping("/{productID)")
+    @PutMapping("/{productID}")
     public ResponseEntity<Product> updateProduct(@PathVariable(value = "productID") Long productId,
                                              @Valid @RequestBody Product newProduct)
             throws ResourceNotFound {
@@ -78,7 +78,7 @@ public class ProductController {
     }
 
 
-    @DeleteMapping("/{productID)")
+    @DeleteMapping("/{productID}")
     public Map<String, Boolean> deleteProduct(@PathVariable(value = "productID") Long productId)
             throws ResourceNotFound {
         Product product = productRepository.findById(productId)

@@ -32,7 +32,7 @@ public class BuyerController {
 
     }
 
-    @GetMapping("/{buyerID)")
+    @GetMapping("/{buyerID}")
     public ResponseEntity<Buyer> getBuyerById(@PathVariable(value = "buyerID") Long buyerId)
             throws ResourceNotFound {
         Buyer buyer = buyerRepository.findById(buyerId)
@@ -46,7 +46,7 @@ public class BuyerController {
         return buyerRepository.save(buyer);
     }
 
-    @PutMapping("/{buyerID)")
+    @PutMapping("/{buyerID}")
     public ResponseEntity<Buyer> updateBuyer(@PathVariable(value = "buyerID") Long buyerId,
                                                @Valid @RequestBody Buyer newBuyer)
             throws ResourceNotFound {
@@ -68,7 +68,7 @@ public class BuyerController {
     }
 
 
-    @DeleteMapping("/{buyerID)")
+    @DeleteMapping("/{buyerID}")
     public Map<String, Boolean> deleteBuyer(@PathVariable(value = "buyerID") Long buyerId)
             throws ResourceNotFound {
         Buyer buyer = buyerRepository.findById(buyerId)

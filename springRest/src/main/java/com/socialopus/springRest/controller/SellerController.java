@@ -32,7 +32,7 @@ public class SellerController {
 
     }
 
-    @GetMapping("/{sellerID)")
+    @GetMapping("/{sellerID}")
     public ResponseEntity<Seller> getSellerById(@PathVariable(value = "sellerID") Long sellerId)
             throws ResourceNotFound {
         Seller seller = sellerRepository.findById(sellerId)
