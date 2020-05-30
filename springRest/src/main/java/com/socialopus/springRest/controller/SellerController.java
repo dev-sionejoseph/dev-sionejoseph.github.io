@@ -58,6 +58,7 @@ public class SellerController {
         seller.setFirstName(newSeller.getFirstName());
         seller.setLastName(newSeller.getLastName());
         seller.setUsername(newSeller.getUsername());
+        seller.setPassword(newSeller.getPassword());
 
 
         final Seller updatedSeller = sellerRepository.save(seller);

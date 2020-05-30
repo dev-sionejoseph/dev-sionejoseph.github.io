@@ -24,6 +24,9 @@ public class Buyer {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "password")
+    private String password;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "buyer_id")
     private List<Order> orders;
@@ -32,12 +35,13 @@ public class Buyer {
         super();
     }
 
-    public Buyer(String firstName, String lastName, String email, String username) {
+    public Buyer(String firstName, String lastName, String email, String username, String password) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
+        this.password = password;
     }
 
     public Long getId() {
@@ -78,6 +82,16 @@ public class Buyer {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+//        Crypt crypt = new Key();
+//        String encPassword = new String(crypt.encrypt(password.getBytes()));
+        this.password = password;
     }
 
     public List<Order> getOrders() {

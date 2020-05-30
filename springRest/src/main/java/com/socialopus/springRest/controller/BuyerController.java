@@ -58,6 +58,7 @@ public class BuyerController {
         buyer.setFirstName(newBuyer.getFirstName());
         buyer.setLastName(newBuyer.getLastName());
         buyer.setUsername(newBuyer.getUsername());
+        buyer.setPassword(newBuyer.getPassword());
 
 
         final Buyer updatedBuyer = buyerRepository.save(buyer);
