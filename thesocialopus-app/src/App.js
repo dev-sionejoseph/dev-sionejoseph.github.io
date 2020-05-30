@@ -1,13 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      
-    </div>
-  );
+export default class App extends Component {
+  constructor(props){
+    super(props);
+
+    this.state={
+      auth: false,
+      role: null,
+      userID: null
+    }
+  
+  this.handleLogin = this.handleLogin.bind(this);
+  
+  }
+  render() {
+    return (
+      <div className="App">
+        
+      </div>
+    )
+  }
 }
 
-export default App;
