@@ -9,10 +9,21 @@ export default class Gallery extends Component {
         super(props);
 
         this.state={
-            cart:[],
+            cart:["test"],
             auth: false,
             products:[]
         }
+
+        this.addToCart = this.addToCart.bind(this);
+    }
+
+    addToCart(e){
+        let newCartItem= e.target.value
+
+        this.setState({
+            cart: [newCartItem, ...this.state.cart]
+        })
+        console.log(this.state.cart);
     }
 
     async componentDidMount(){
@@ -41,11 +52,10 @@ export default class Gallery extends Component {
     }
     
     render() {
-        const gallery = this.state.products.map(product => {return <ArtPiece key={product.id} product={ product }/>})
+        const gallery = this.state.products.map(product => {return <ArtPiece key={product.id} product={ product } onClick={this.addToCart}/>})
        
         return (
-            <div>
-                 Gallery Page
+            <div className="gallery-wrap">
                  {gallery}
             </div>
         )

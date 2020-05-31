@@ -12,7 +12,7 @@ export default function ArtPiece(props){
                         <CardTitle>{product.title}</CardTitle>
                         <CardSubtitle>{product.price}</CardSubtitle>
                         <CardText>{product.details}</CardText>
-                        <Button onClick={props.onClick}>Add to Cart</Button>
+                        <Button onClick={props.onClick} value={product}>Add to Cart</Button>
                     </CardBody>
             </Card>
         </div>
