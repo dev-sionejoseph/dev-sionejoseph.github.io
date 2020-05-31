@@ -11,9 +11,9 @@ const INITIAL_AUTH ={
     auth: false
 }
 
-const INITIAL_CART ={
-    cart:[]
-}
+// const INITIAL_CART ={
+//     cart:[]
+// }
 
 const userReducer = (state=INITIAL_USER, action) => {
     switch(action.type) {
