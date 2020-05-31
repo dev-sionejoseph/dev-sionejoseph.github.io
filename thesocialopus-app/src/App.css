@@ -2,3 +2,13 @@
   text-align: center;
 }
 
+.login-wrap{
+  width: 30%;
+  min-width: 300px;
+}
+
+.login-inputs{
+  width: 50%;
+  background-color: aqua;
+}
+

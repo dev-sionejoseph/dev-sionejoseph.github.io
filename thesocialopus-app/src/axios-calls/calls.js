@@ -1,13 +1,13 @@
-export const get = (urlmap, id="" , body) => {
+import axios from 'axios';
 
-    let urlmap = urlmap;
-    let id = id;
+export const get = (urlmap, id="") => {
+
     let fullURL = `/${urlmap}/${id}`
 
-    axios.post(fullURL, {
-        body   
-    }).then(res => {
-        return res.data
+    axios.get(fullURL)
+    .then(res => {
+        let results = res.data
+        return results
     }).catch((error)=>{
         return error
    });
@@ -15,8 +15,6 @@ export const get = (urlmap, id="" , body) => {
 }
 
 export const post = (urlmap, body) => {
-
-    let urlmap = urlmap;
 
     axios.post(urlmap, {
         body   
@@ -30,11 +28,9 @@ export const post = (urlmap, body) => {
 
 export const put = (urlmap, id , body) => {
 
-    let urlmap = urlmap;
-    let id = id;
     let fullURL = `/${urlmap}/${id}`
 
-    axios.post(fullURL, {
+    axios.put(fullURL, {
         body   
     }).then(res => {
         return res.data
@@ -46,13 +42,9 @@ export const put = (urlmap, id , body) => {
 
 export const dlt = (urlmap, id) => {
 
-    let urlmap = urlmap;
-    let id = id;
     let fullURL = `/${urlmap}/${id}`
 
-    axios.post(fullURL, {
-        body   
-    }).then(res => {
+    axios.delete(fullURL).then(res => {
         return res.data
     }).catch((error)=>{
         return error
