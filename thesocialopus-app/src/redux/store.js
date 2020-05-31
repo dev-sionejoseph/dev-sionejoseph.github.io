@@ -1,6 +1,10 @@
-import {createStore} from 'redux';
-import * as reducer from './reducers';
+import {createStore, applyMiddleware} from 'redux';
+import allReducers from './reducers';
+import logger from 'redux-logger';
 
-let store = createStore(reducer)
+
+export const middleware = [logger];
+
+export const store = createStore(allReducers, applyMiddleware(...middleware));
 
 export default store;
