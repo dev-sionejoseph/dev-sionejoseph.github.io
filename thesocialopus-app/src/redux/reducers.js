@@ -1,5 +1,6 @@
 import {userTypes, authTypes} from './actions'
-import {combinedReducers} from 'redux'
+import { combineReducers } from 'redux'
+
 
 const INITIAL_USER ={
     currentUser: null,
@@ -46,22 +47,22 @@ switch(action.type) {
     }
 }
 
-const cartReducer = (state=INITIAL_CART, action) => {
-    switch(action.type) {
-        case cartTypes.ADD_ITEM:
-            return {
-                ...state,
-                cart: action.payload
-            }
-        case cartTypes.REMOVE_ITEM:
-            return {
-                ...state,
-            cart: action.payload
-            }
-        default: return state
-        }
-    }
+// const cartReducer = (state=INITIAL_CART, action) => {
+//     switch(action.type) {
+//         case cartTypes.ADD_ITEM:
+//             return {
+//                 ...state,
+//                 cart: action.payload
+//             }
+//         case cartTypes.REMOVE_ITEM:
+//             return {
+//                 ...state,
+//             cart: action.payload
+//             }
+//         default: return state
+//         }
+//     }
 
-const allReducers = combinedReducers({auth: authReducer, user: userReducer})
+const allReducers = combineReducers({auth: authReducer, user: userReducer})
 
 export default allReducers;
