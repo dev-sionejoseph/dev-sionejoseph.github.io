@@ -11,27 +11,42 @@ export default class Gallery extends Component {
         this.state={
             cart:[],
             auth: false,
-            products:{}
+            products:[]
         }
     }
 
     async componentDidMount(){
-        let products = get.call(this,`products`)
-        // products.map(product => <ArtPiece product={product}/>)
+        get.call(this,`products`).then(response =>{
+            this.setState({
+                products: response
+            })
+        })
+        
+        // **KEEPING THIS HERE IN CASE ABOVE CALL BREAKS**
 
         // Axios.get('/products/').then(res => {
+            
+        //    console.log(res);
         //    console.log(res.data);
+        //    console.log(res.data[0]);
+
+        //    this.setState({
+        //        products: res.data
+        //    })
+
         // }).catch((e) =>{
         //     console.log(e);
         // })
-
-        console.log(products);
+        
     }
     
     render() {
+        const gallery = this.state.products.map(product => {return <ArtPiece key={product.id} product={ product }/>})
+       
         return (
             <div>
-                
+                 Gallery Page
+                 {gallery}
             </div>
         )
     }
