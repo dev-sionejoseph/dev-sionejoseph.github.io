@@ -9,8 +9,7 @@ export default function Profile() {
     let display;
     
     if((auth) && (role === "sellers")){
-        // display = <SellerExhibit />
-        display = "sellers"
+        display = <SellerExhibit />
     } else if (auth){
         display = <Cart />
     } else {

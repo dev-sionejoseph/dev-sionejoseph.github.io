@@ -191,9 +191,9 @@ class LogIn extends Component{
 
     const mapStateToProps = (state, ownProps) => {
         return{
-            auth: state.auth,
-            user: state.currentUser,
-            role: state.role
+            auth: state.auth.auth,
+            user: state.user.currentUser,
+            role: state.user.role
         }
     }
 

@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { get, post, put, dlt } from '../axios-calls/calls';
 import ArtPiece from './ArtPiece';
+import { Button, Popover, PopoverHeader, PopoverBody, Input } from 'reactstrap';
 
 function SellerExhibit () {
 
     const user = useSelector(state => state.user)
+    const [popoverOpen, setPopoverOpen] = useState(false);
+    const toggle = () => setPopoverOpen(!popoverOpen);
 
     const deleteProduct = (e) =>{
          
@@ -40,17 +43,39 @@ function SellerExhibit () {
     }
     
     const getProducts = () => {
-        let products;
-        if ((user !== null) && (user.userRole === "sellers")){
-            get.call(this,`/byseller/${user.currentUser.id}`).then(response=>{
-                products = response;
-            })
+        let final;
 
-            products.map(product => {
-                return <ArtPiece type="seller" product={product} key={product.id}/>
+        if ((user !== null) && (user.role === "sellers")){
+            get.call(this,`/byseller/${user.currentUser.id}`).then(response=>{
+                let products = response;
+                
+                final = products.map(product => {
+                    return (
+                        <div className="editableArt">
+                            
+                            <div className="popoverDiv">
+                                <Button id={product.id} 
+                                className="edit-popover" type="button">
+                                        edit
+                                    </Button>
+                                <Popover placement="bottom" isOpen={popoverOpen} target={product.id} toggle={toggle}>
+                                <PopoverHeader>Edit</PopoverHeader>
+                                        <PopoverBody>
+                                            <Input className="edit-inputs" placeholder={product.title}></Input>
+                                            <Input className="edit-inputs" placeholder={product.details}></Input>
+                                            <Input className="edit-inputs" placeholder={product.price}></Input>
+                                            <Input className="edit-inputs" placeholder={product.image}></Input>
+                                            <Button className="submit-edit" onClick={editProduct}></Button>
+                                        </PopoverBody>
+                                    </Popover>
+                            </div>
+                            <ArtPiece type="seller" product={product} key={product.id}/>
+                        </div>
+                )
+                })
             })
-            return products
-        } else if (user.userRole === "sellers"){
+            return final
+        } else if (user.role === "sellers"){
             return "Add your first art piece!"
         } else {
             return "Sign up as an Artist!"
@@ -59,17 +84,17 @@ function SellerExhibit () {
 
     return (
         <div className="exhibit-wrap">
-            {getProducts}
+            {getProducts()}
         </div>
     )
    
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return{
-        auth: state.auth,
-        user: state.currentUser,
-        role: state.userRole
+        auth: state.auth.auth,
+        user: state.user.currentUser,
+        role: state.user.role
     }
 }
 
