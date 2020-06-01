@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, BrowserRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {Nav, NavItem, Navbar, NavbarBrand, NavbarToggler } from 'reactstrap'
 import { useSelector } from 'react-redux';
 
@@ -10,8 +10,6 @@ export default function NavBar() {
     const toggle = () => setIsOpen(!isOpen);
 
     let personalpage;
-    console.log(role)
-    console.log(auth)
 
     if(auth === false){
         personalpage = ""
@@ -29,7 +27,6 @@ export default function NavBar() {
 
 
     return (
-        <BrowserRouter>
             <div className="nav-wrap-div">
                 <Navbar>
                     <NavbarBrand href="/">the Social Opus</NavbarBrand>
@@ -45,6 +42,5 @@ export default function NavBar() {
                     </Nav>
                 </Navbar>
             </div>
-        </BrowserRouter>
     )
 }

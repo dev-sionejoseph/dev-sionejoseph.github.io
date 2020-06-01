@@ -9,19 +9,20 @@ export const get = (urlmap, id="") => {
         let results = res.data
         return results
     }).catch((error)=>{
-        return ["request error"]
+        return null
    });
     
 }
 
 export const post = (urlmap, body) => {
 
-    return axios.post(urlmap, {
+    return axios.post(urlmap, 
         body   
-    }).then(res => {
+    ).then(res => {
+        console.log("getting through")
         return res.data
     }).catch((error)=>{
-        return ["error adding"]
+        return null
    });
     
 }
@@ -35,19 +36,17 @@ export const put = (urlmap, id , body) => {
     }).then(res => {
         return res.data
     }).catch((error)=>{
-        return ["error updating"]
+        return null
    });
     
 }
 
-export const dlt = (urlmap, id) => {
-
-    let fullURL = `/${urlmap}/${id}`
+export const dlt = (fullURL) => {
 
     return axios.delete(fullURL).then(res => {
-        return res.data
+        return "delete successful"
     }).catch((error)=>{
-        return ["error deleting"]
+        return null
    });
     
 }
