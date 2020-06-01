@@ -2,20 +2,19 @@ import React, { Component } from 'react';
 import { get, post } from '../axios-calls/calls';
 import { Button, Form, FormGroup, Label, Input, Nav, NavItem, NavLink, TabContent, TabPane, Row, Col} from 'reactstrap';
 import classnames from 'classnames';
-import { useDispatch } from 'react-redux'
+import { useDispatch, connect } from 'react-redux'
 import { setCurrentUser, setRole , logIn } from '../redux/actions'
 import SellerExhibit from './SellerExhibit';
 // import Axios from 'axios';
 
 
 
-export default class LogIn extends Component{
+class LogIn extends Component{
     constructor(props) {
         super(props);
     
         this.toggle = this.toggle.bind(this);
         this.signUp = this.signUp.bind(this);
-        this.dispatch = this.dispatch.bind(this);
         this.handleChange = this.handleChange.bind(this);
 
         this.state = {
@@ -27,7 +26,6 @@ export default class LogIn extends Component{
           password: null,
           role: "",
           error: "",
-          currentUser: null
         };
       }
     
@@ -202,3 +200,22 @@ export default class LogIn extends Component{
         )
     }
 }
+
+    const mapStateToProps = (state, ownProps) => {
+        return{
+            auth: state.auth,
+            user: state.currentUser,
+            role: state.userRole
+        }
+    }
+
+    const mapDispatchToProps = (dispatch) =>{
+        return{
+            setUser: (user) => { dispatch({type:SET_CURRENT_USER, payload: user}) },
+            setRole: (role) => { dispatch({type:SET_USER_ROLE, payload: role}) },
+            setAuth: () => { dispatch({type:LOGGED_IN}) },
+            unAuth: () => { dispatch({type:LOGGED_OUT}) }
+        }
+    }
+
+export default connect(mapStateToProps,mapDispatchToProps)(LogIn)
