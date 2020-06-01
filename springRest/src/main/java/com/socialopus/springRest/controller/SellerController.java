@@ -40,6 +40,16 @@ public class SellerController {
         return ResponseEntity.ok().body(seller);
     }
 
+    @GetMapping("/auth/{username}")
+
+    public List<Seller> getBuyerByUsername(@PathVariable(value = "username") String username){
+
+        List seller = sellerRepository.findByUsername(username);
+
+        return seller;
+
+    }
+
 
     @PostMapping("/")
     public Seller createSeller(@Valid @RequestBody Seller seller) {

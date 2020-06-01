@@ -40,13 +40,13 @@ public class BuyerController {
         return ResponseEntity.ok().body(buyer);
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/auth/{username}")
 
     public List<Buyer> getBuyerByUsername(@PathVariable(value = "username") String username){
 
-        List buyers = buyerRepository.findByUsername(username);
+        List buyer = buyerRepository.findByUsername(username);
 
-        return buyers;
+        return buyer;
 
     }
 
