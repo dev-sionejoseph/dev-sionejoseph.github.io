@@ -1,36 +1,37 @@
 import React, { Component } from 'react';
 import Gallery from './components/Gallery';
 import NavBar from './components/NavBar';
+import Cart from './components/Cart';
+import SellerExhibit from './components/SellerExhibit';
 import './App.css'
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import LogIn from './components/LogIn';
 
 export default class App extends Component {
-  // constructor(props){
-  //   super(props);
 
-  //   this.state={
-  //     auth: false,
-  //     role: null,
-  //     userID: null
-  //   }
-  
-  // this.handleAuth = this.handleAuth.bind(this);
-  // }
-
-  // handleAuth = (role, userID) => {
-  //   this.setState({
-  //     auth: true,
-  //     role: role,
-  //     userID: userID
-  //   })
-    
-  // }
   render() {
     return (
-      <div className="App">
-        <NavBar />
-        <Gallery/> 
-      </div>
+      <Router>
+        <div className="App">
+          <NavBar />
+            <Switch>
+              <Route path="/cart">
+                <Cart />
+              </Route>
+              <Route path="/exhibit">
+                <SellerExhibit />
+              </Route>
+              <Route path="/login">
+                <LogIn />
+              </Route>
+              <Route path="/">
+                <Gallery/>
+              </Route>
+            </Switch>
+        </div>
+      </Router> 
     )
   }
 }
+
 

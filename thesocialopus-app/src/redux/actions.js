@@ -5,9 +5,12 @@ export const authTypes = {
     LOGGED_OUT: "logged_out"
 }
 
-export const authSuccess = status =>({
+export const logIn = () =>({
     type: authTypes.LOGGED_IN,
-    payload: status
+})
+
+export const logOut = () =>({
+    type: authTypes.LOGGED_OUT,
 })
 
 
@@ -25,7 +28,7 @@ export const setCurrentUser = user => ({
     payload: user
   });
 
-export const setUserRole = role => ({
+export const setRole = role => ({
     type: userTypes.SET_USER_ROLE,
     payload: role
   });

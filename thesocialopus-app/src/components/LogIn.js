@@ -1,7 +1,9 @@
 import React, { useState, Component } from 'react';
+import { get, post } from '../axios-calls/calls';
 import { Button, Form, FormGroup, Label, Input, Nav, NavItem, NavLink, TabContent, TabPane, Row, Col} from 'reactstrap';
 import classnames from 'classnames';
-import * as calls from '../axios-calls/calls';
+import { useSelector, useDispatch } from 'react-redux'
+import { setCurrentUser, setRole , logIn } from '../redux/actions'
 
 
 
@@ -11,18 +13,39 @@ export default class LogIn extends Component{
     
         this.toggle = this.toggle.bind(this);
         this.signUp = this.signUp.bind(this);
+        this.handleChange = this.handleChange.bind(this);
 
         this.state = {
           activeTab: '1',
           firstName: null,
           lastName: null,
           username: null,
-          email: null
+          email: null,
+          password: null
         };
       }
-      
+    
+    handleChange(e){
+        this.setState({
+            [e.target.name]: e.target.value 
+        });
+    } 
+
     signUp=(e)=>{ 
-        console.log(calls.post);
+        let body ={
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            username: this.state.username,
+            email: this.state.email,
+            password: this.state.password
+        }
+        let role = e.target.name 
+
+        post.call(this,`${role}`, body).then(response =>{
+            useDispatch(setCurrentUser(response));
+            useDispatch(setRole(role));
+            useDispatch(logIn());
+        })
     }
 
     toggle=(tab)=> {
