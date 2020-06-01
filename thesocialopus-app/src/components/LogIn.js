@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { get, post } from '../axios-calls/calls';
 import { Button, Form, FormGroup, Label, Input, Nav, NavItem, NavLink, TabContent, TabPane, Row, Col} from 'reactstrap';
 import classnames from 'classnames';
-import { useDispatch, connect } from 'react-redux'
-import { setCurrentUser, setRole , logIn } from '../redux/actions'
-import SellerExhibit from './SellerExhibit';
+import { connect } from 'react-redux'
 // import Axios from 'axios';
 
 
@@ -28,6 +26,7 @@ class LogIn extends Component{
           error: "",
         };
       }
+
     
     handleChange(e){
         this.setState({
@@ -38,14 +37,15 @@ class LogIn extends Component{
     handleLogIn=(e)=>{ 
         let role = e.target.name 
         let user = this.state.username
+        console.log(this.props);
 
         get.call(this,`${role}/auth/${user}`).then(response =>{
-            if((response!== null) && (response.password === this.state.password)){
+            if((response!== null)){
                 console.log("password worked")
-                this.setState({
-                    currentUser: response,
-                    role: role
-                })
+                this.props.setAuth()
+                this.props.setUser(response)
+                this.props.setRole(role)
+                console.log(this.props);
             } else {
                 this.setState({
                     error:"Invalid credentials; Please try again."
@@ -64,31 +64,18 @@ class LogIn extends Component{
         }
 
         let role = this.state.role
-        console.log(role)
 
         post.call(this,`/${role}/`, body).then(response =>{
-            let postresponse = response
-            if(postresponse !== null){
-                get.call(this,`${role}/auth/${this.state.username}`).then(response =>{
-                        console.log("nested call worked")
-                        this.setState({
-                            currentUser: response,
-                            role
-                        })
-                    })
-                    this.dispatch()
+            if(response !== null){
+                this.props.setAuth()
+                this.props.setUser(response)
+                this.props.setRole(this.state.role)
             } else {
                 this.setState({
                     error:"Invalid information; Please fill out form again."
                 })
             }  
         })
-    }
-
-    dispatch=()=>{
-        useDispatch(setCurrentUser(this.state.currentUser))
-        useDispatch(setRole(this.state.role));
-        useDispatch(logIn()); 
     }
 
     toggle=(tab)=> {
@@ -135,6 +122,7 @@ class LogIn extends Component{
                                         <Input type="password" name="password" className="login-inputs" placeholder="Password" onChange={this.handleChange}/>
                                     </FormGroup>
                                     <Button color="secondary" name="buyers" block onClick={this.handleLogIn}>Log In</Button>
+                                    <span className="red-span">{this.state.error}</span>
                                 </Form>
                             </Col>
                         </Row>
@@ -151,6 +139,7 @@ class LogIn extends Component{
                                         <Input type="password" name="password" className="login-inputs" placeholder="Password" onChange={this.handleChange}/>
                                     </FormGroup>
                                     <Button color="secondary" name="sellers" block onClick={this.handleLogIn}>Log In</Button>
+                                    <span className="red-span">{this.state.error}</span>
                                 </Form>
                             </Col>
                         </Row>
@@ -195,7 +184,6 @@ class LogIn extends Component{
                         </Row>
                     </TabPane>
                 </TabContent>
-                <SellerExhibit />
             </div> 
         )
     }
@@ -205,16 +193,16 @@ class LogIn extends Component{
         return{
             auth: state.auth,
             user: state.currentUser,
-            role: state.userRole
+            role: state.role
         }
     }
 
     const mapDispatchToProps = (dispatch) =>{
         return{
-            setUser: (user) => { dispatch({type:SET_CURRENT_USER, payload: user}) },
-            setRole: (role) => { dispatch({type:SET_USER_ROLE, payload: role}) },
-            setAuth: () => { dispatch({type:LOGGED_IN}) },
-            unAuth: () => { dispatch({type:LOGGED_OUT}) }
+            setUser: (user) => { dispatch({type:"set_current_user", payload: user}) },
+            setRole: (role) => { dispatch({type:"set_user_role", payload: role}) },
+            setAuth: () => { dispatch({type:"logged_in"}) },
+            unAuth: () => { dispatch({type:"logged_out"}) }
         }
     }
 

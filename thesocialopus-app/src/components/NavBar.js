@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {Nav, NavItem, Navbar, NavbarBrand, NavbarToggler } from 'reactstrap'
-import { useSelector } from 'react-redux';
+import { useSelector, connect } from 'react-redux';
+import { logOut } from '../redux/actions';
 
-export default function NavBar() {
-    const role = useSelector(state => state.user.userRole);
+function NavBar(props) {
     const auth = useSelector(state => state.auth.auth);
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
 
-    let personalpage;
+    const logout =()=>{
+        this.props.unAuth()
+    }
+
+    let authButton = <NavItem>
+                        <Link to="/" onClick={logout}>Log Out</Link>
+                     </NavItem>
 
     if(auth === false){
-        personalpage = ""
-    }else if(role === "buyer"){
-        personalpage = 
-        <NavItem>
-            <Link to="/cart">My Cart</Link>
-        </NavItem>
-    }else {
-        personalpage = 
-        <NavItem>
-            <Link to="/exhibit">My Exhibit</Link>
-        </NavItem>
+
+        authButton = <NavItem>
+                        <Link to="/login">Log In</Link>
+                    </NavItem>
+
     }
 
 
@@ -35,12 +35,28 @@ export default function NavBar() {
                         <NavItem>
                             <Link to="/">Gallery</Link>
                         </NavItem>
-                            {personalpage}
                         <NavItem>
-                            <Link to="/login">{ auth ? "Log Out" : "Log In" }</Link>
+                            <Link to="/profile">My Profile</Link>
                         </NavItem>
+                        {authButton}
                     </Nav>
                 </Navbar>
             </div>
     )
 }
+
+const mapStateToProps = (state) => {
+    return{
+        auth: state.auth,
+        user: state.currentUser,
+        role: state.userRole
+    }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        unAuth: () => { dispatch({type:"logged_out"}) }
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(NavBar);

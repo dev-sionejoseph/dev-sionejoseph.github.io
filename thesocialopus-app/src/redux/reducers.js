@@ -4,7 +4,7 @@ import { combineReducers } from 'redux'
 
 const INITIAL_USER ={
     currentUser: null,
-    userRole: null,
+    role: null,
 }
 
 const INITIAL_AUTH ={

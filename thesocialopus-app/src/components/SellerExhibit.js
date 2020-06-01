@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, connect } from 'react-redux';
 import { get, post, put, dlt } from '../axios-calls/calls';
 import ArtPiece from './ArtPiece';
 
-export default function SellerExhibit () {
+function SellerExhibit () {
 
     const user = useSelector(state => state.user)
 
@@ -20,7 +20,18 @@ export default function SellerExhibit () {
         });
     }
 
-    const editProduct = () =>{
+    const editProduct = (e) =>{
+
+        put.call(this,`/products/${e.target.id}`).then(response =>{
+            if(response !== null){
+               console.log(`delete successful : ${response}`)
+               this.props.history.push('/profile')
+            } else {
+                this.setState({
+                    error:"Unable to save change; Please try again."
+                })
+            }
+        });
         
     }
 
@@ -38,6 +49,7 @@ export default function SellerExhibit () {
             products.map(product => {
                 return <ArtPiece type="seller" product={product} key={product.id}/>
             })
+            return products
         } else if (user.userRole === "sellers"){
             return "Add your first art piece!"
         } else {
@@ -50,7 +62,16 @@ export default function SellerExhibit () {
             {getProducts}
         </div>
     )
-
    
-    
 }
+
+const mapStateToProps = (state, ownProps) => {
+    return{
+        auth: state.auth,
+        user: state.currentUser,
+        role: state.userRole
+    }
+}
+
+
+export default connect(mapStateToProps)(SellerExhibit);
