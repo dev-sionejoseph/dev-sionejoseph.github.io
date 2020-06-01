@@ -10,6 +10,9 @@ function SellerExhibit () {
     const [popoverOpen, setPopoverOpen] = useState(false);
     const toggle = () => setPopoverOpen(!popoverOpen);
 
+    let userID = this.props.user.id
+    
+
     const deleteProduct = (e) =>{
          
         dlt.call(this,`/products/${e.target.id}`).then(response =>{
@@ -44,35 +47,39 @@ function SellerExhibit () {
     
     const getProducts = () => {
         let final;
-
+        console.log(this.props.userID)
         if ((user !== null) && (user.role === "sellers")){
-            get.call(this,`/byseller/${user.currentUser.id}`).then(response=>{
-                let products = response;
+            console.log(`current user: ${user.currentUser.firstName}`)
+            get.call(this,`/byseller/100`).then(response=>{
+                console.log(response)
+                if(response !== null){
+                    let products = response;
                 
-                final = products.map(product => {
-                    return (
-                        <div className="editableArt">
-                            
-                            <div className="popoverDiv">
-                                <Button id={product.id} 
-                                className="edit-popover" type="button">
-                                        edit
-                                    </Button>
-                                <Popover placement="bottom" isOpen={popoverOpen} target={product.id} toggle={toggle}>
-                                <PopoverHeader>Edit</PopoverHeader>
-                                        <PopoverBody>
-                                            <Input className="edit-inputs" placeholder={product.title}></Input>
-                                            <Input className="edit-inputs" placeholder={product.details}></Input>
-                                            <Input className="edit-inputs" placeholder={product.price}></Input>
-                                            <Input className="edit-inputs" placeholder={product.image}></Input>
-                                            <Button className="submit-edit" onClick={editProduct}></Button>
-                                        </PopoverBody>
-                                    </Popover>
+                    final = products.map(product => {
+                        return (
+                            <div className="editableArt">
+                                
+                                <div className="popoverDiv">
+                                    <Button id={product.id} 
+                                    className="edit-popover" type="button">
+                                            edit
+                                        </Button>
+                                    <Popover placement="bottom" isOpen={popoverOpen} target={product.id} toggle={toggle}>
+                                    <PopoverHeader>Edit</PopoverHeader>
+                                            <PopoverBody>
+                                                <Input className="edit-inputs" placeholder={product.title}></Input>
+                                                <Input className="edit-inputs" placeholder={product.details}></Input>
+                                                <Input className="edit-inputs" placeholder={product.price}></Input>
+                                                <Input className="edit-inputs" placeholder={product.image}></Input>
+                                                <Button className="submit-edit" onClick={editProduct}></Button>
+                                            </PopoverBody>
+                                        </Popover>
+                                </div>
+                                <ArtPiece type="seller" product={product} key={product.id}/>
                             </div>
-                            <ArtPiece type="seller" product={product} key={product.id}/>
-                        </div>
-                )
-                })
+                        )
+                    })
+                }
             })
             return final
         } else if (user.role === "sellers"){
@@ -94,6 +101,7 @@ const mapStateToProps = (state) => {
     return{
         auth: state.auth.auth,
         user: state.user.currentUser,
+        userID: state.user.currentUser.id,
         role: state.user.role
     }
 }
