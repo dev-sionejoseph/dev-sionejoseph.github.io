@@ -35,4 +35,18 @@ export const setRole = role => ({
 
 //cart
 
+export const cartTypes = {
+    ADD_ITEM: "add_item",
+    REMOVE_ITEM: "remove_item"
+}
+
+export const addToCart = item => ({
+    type: userTypes.ADD_ITEM,
+    payload: item
+  });
+
+export const removeFromCart = item => ({
+    type: userTypes.REMOVE_ITEM,
+    payload: item
+  });
 

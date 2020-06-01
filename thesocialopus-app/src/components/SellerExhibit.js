@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { get, post, put, dlt } from '../axios-calls/calls';
+import ArtPiece from './ArtPiece';
 
 export default function SellerExhibit () {
 
     const user = useSelector(state => state.user)
-    console.log(user);
 
     const deleteProduct = (e) =>{
          
@@ -28,9 +28,26 @@ export default function SellerExhibit () {
 
     }
     
+    const getProducts = () => {
+        let products;
+        if ((user !== null) && (user.userRole === "sellers")){
+            get.call(this,`/byseller/${user.currentUser.id}`).then(response=>{
+                products = response;
+            })
+
+            products.map(product => {
+                return <ArtPiece type="seller" product={product} key={product.id}/>
+            })
+        } else if (user.userRole === "sellers"){
+            return "Add your first art piece!"
+        } else {
+            return "Sign up as an Artist!"
+        }
+    }
+
     return (
         <div className="exhibit-wrap">
-            
+            {getProducts}
         </div>
     )
 

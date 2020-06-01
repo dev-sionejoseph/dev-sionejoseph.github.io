@@ -10,7 +10,6 @@ export default class Gallery extends Component {
 
         this.state={
             cart:["test"],
-            auth: false,
             products:[]
         }
 
@@ -32,22 +31,6 @@ export default class Gallery extends Component {
                 products: response
             })
         })
-        
-        // **KEEPING THIS HERE IN CASE ABOVE CALL BREAKS**
-
-        // Axios.get('/products/').then(res => {
-            
-        //    console.log(res);
-        //    console.log(res.data);
-        //    console.log(res.data[0]);
-
-        //    this.setState({
-        //        products: res.data
-        //    })
-
-        // }).catch((e) =>{
-        //     console.log(e);
-        // })
         
     }
     

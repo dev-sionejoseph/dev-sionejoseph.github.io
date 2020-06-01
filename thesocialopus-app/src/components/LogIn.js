@@ -15,6 +15,7 @@ export default class LogIn extends Component{
     
         this.toggle = this.toggle.bind(this);
         this.signUp = this.signUp.bind(this);
+        this.dispatch = this.dispatch.bind(this);
         this.handleChange = this.handleChange.bind(this);
 
         this.state = {
@@ -25,7 +26,8 @@ export default class LogIn extends Component{
           email: null,
           password: null,
           role: "",
-          error: ""
+          error: "",
+          currentUser: null
         };
       }
     
@@ -41,9 +43,11 @@ export default class LogIn extends Component{
 
         get.call(this,`${role}/auth/${user}`).then(response =>{
             if((response!== null) && (response.password === this.state.password)){
-                useDispatch(setCurrentUser(response));
-                useDispatch(setRole(role));
-                useDispatch(logIn());
+                console.log("password worked")
+                this.setState({
+                    currentUser: response,
+                    role: role
+                })
             } else {
                 this.setState({
                     error:"Invalid credentials; Please try again."
@@ -64,30 +68,29 @@ export default class LogIn extends Component{
         let role = this.state.role
         console.log(role)
 
-    //     Axios.post(`/${role}/`, {
-    //         firstName: this.state.firstName,
-    //         lastName: this.state.lastName,
-    //         username: this.state.username,
-    //         email: this.state.email,
-    //         password: this.state.password
-    //     }).then(res => {
-    //         console.log(res.data) 
-    //     }).catch((error)=>{
-    //         console.log(error) 
-    //    });
-
         post.call(this,`/${role}/`, body).then(response =>{
-            if((response !== null) && (response.password === this.state.password)){
-                useDispatch(setCurrentUser(response));
-                useDispatch(setRole(role));
-                useDispatch(logIn());
+            let postresponse = response
+            if(postresponse !== null){
+                get.call(this,`${role}/auth/${this.state.username}`).then(response =>{
+                        console.log("nested call worked")
+                        this.setState({
+                            currentUser: response,
+                            role
+                        })
+                    })
+                    this.dispatch()
             } else {
                 this.setState({
                     error:"Invalid information; Please fill out form again."
                 })
-            }
-            
+            }  
         })
+    }
+
+    dispatch=()=>{
+        useDispatch(setCurrentUser(this.state.currentUser))
+        useDispatch(setRole(this.state.role));
+        useDispatch(logIn()); 
     }
 
     toggle=(tab)=> {
@@ -97,7 +100,9 @@ export default class LogIn extends Component{
       }
 
     render() {
+
         return (
+
             <div className="login-wrap">
                 <Nav tabs>
                     <NavItem>
