@@ -4,6 +4,7 @@ import { Button, Form, FormGroup, Label, Input, Nav, NavItem, NavLink, TabConten
 import classnames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux'
 import { setCurrentUser, setRole , logIn } from '../redux/actions'
+import { Redirect } from 'react-router-dom';
 
 
 
@@ -31,6 +32,15 @@ export default class LogIn extends Component{
         });
     } 
 
+    handleLogIn=(e)=>{ 
+        let role = e.target.name 
+
+        get.call(this,`${role}`).then(response =>{
+            useDispatch(setCurrentUser(response));
+            useDispatch(setRole(role));
+            useDispatch(logIn());
+        })
+    }
     signUp=(e)=>{ 
         let body ={
             firstName: this.state.firstName,
@@ -45,6 +55,7 @@ export default class LogIn extends Component{
             useDispatch(setCurrentUser(response));
             useDispatch(setRole(role));
             useDispatch(logIn());
+            <Redirect to='/'/>
         })
     }
 
