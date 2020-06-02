@@ -48,26 +48,18 @@ function SellerExhibit () {
 
     
 
-    const getProducts = () => {
-       
-        let final;
 
-        if ((user !== null) && (user.role === "sellers")){
-            console.log(`current user: ${user.currentUser.firstName}`)
-            
-            return `this is running ${final}`
-        } else if (user.role === "sellers"){
-            return "Add your first art piece!"
-        } else {
-            return "Sign up as an Artist!"
-        }
-    }
+
+    const display=  (user.role === "sellers" 
+                    ? "Add your first art piece!"
+                    : "Sign up as an Artist!")
+   
 
     const productList = products.map(product => {
 
         return (
-            <div className="editableArt">
-                <div className="popoverDiv">
+            <div className="art-actions-wrap">
+                <div className="art-actions">
                     <Button id={`Popover-${product.id}`} 
                     className="edit-popover" type="button">
                             edit
@@ -79,9 +71,10 @@ function SellerExhibit () {
                                 <Input className="edit-inputs" placeholder={product.details}></Input>
                                 <Input className="edit-inputs" placeholder={product.price}></Input>
                                 <Input className="edit-inputs" placeholder={product.image}></Input>
-                                <Button className="submit-edit" onClick={editProduct}></Button>
+                                <Button className="submit-edit" onClick={editProduct}>Submit</Button>
                             </PopoverBody>
                         </Popover>
+                        <Button className="delete" id={product.id} onClick={deleteProduct}>Delete</Button>
                 </div>
                 <ArtPiece type="seller" product={product} key={product.id}/>
             </div>
@@ -90,7 +83,10 @@ function SellerExhibit () {
 
     return (
         <div className="exhibit-wrap">
-            {productList}}
+            <div className="products-wrapper">
+                
+                {productList}
+            </div>
         </div>
     )
    

@@ -1,8 +1,12 @@
 import React from 'react'
-import { CardSubtitle, CardTitle, CardBody, CardImg, CardText, Button, Card } from 'reactstrap'
+import { CardSubtitle, CardTitle, CardBody, CardImg, CardText, Card } from 'reactstrap'
 
 export default function ArtPiece(props){
     const {product} = props;
+
+    const addToCart =(e)=>{
+
+    }
 
     return (
         <div className="art-piece-wrapper" id={product.id}>
@@ -12,7 +16,6 @@ export default function ArtPiece(props){
                         <CardTitle>{product.title}</CardTitle>
                         <CardSubtitle>{product.price}</CardSubtitle>
                         <CardText>{product.details}</CardText>
-                        <Button onClick={props.onClick} value={product}>Add to Cart</Button>
                     </CardBody>
             </Card>
         </div>
