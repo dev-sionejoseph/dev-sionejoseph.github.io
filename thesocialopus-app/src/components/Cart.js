@@ -1,8 +1,9 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Card, CardTitle, Button, CardSubtitle } from 'reactstrap'
 
 export default function Cart() {
+    const dispatch = useDispatch();
     const cart = useSelector(state => state.cart.cart)
     const cartItems = cart.map(item => {
         return (
@@ -10,11 +11,12 @@ export default function Cart() {
                 <Card>
                     <CardTitle>{item.title}</CardTitle>
                     <CardSubtitle>{item.price}</CardSubtitle>
-                    <Button color="danger" id={item.id}>Remove</Button>
+                    <Button color="danger" onClick={() => dispatch({type: "remove_item", payload:item.id})}>Remove</Button>
                 </Card>
             </div>
         )
     })
+
     return (
         <div className="cart-wrap-main">
                 <div className="cart-items-container">

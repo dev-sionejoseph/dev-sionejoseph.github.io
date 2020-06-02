@@ -7,7 +7,7 @@ export default function ArtPiece(props){
     return (
         <div className="art-piece-wrapper" id={product.id}>
             <Card>
-                <CardImg top width="100%" src={product.image} alt="Card image cap" />
+                <CardImg top width="100%" src={require("../assets/productimgs/test3.jpg")} alt="Card image cap" />
                     <CardBody>
                         <CardTitle>{product.title}</CardTitle>
                         <CardSubtitle>{product.price}</CardSubtitle>

@@ -61,7 +61,7 @@ const cartReducer = (state=INITIAL_CART, action) => {
                 cart: [...state.cart, action.payload]
             }
         case cartTypes.REMOVE_ITEM:
-            let newCart = state.cart.filter(item=> item.id !== action.payload.id)
+            let newCart = state.cart.filter(item=> item.id !== action.payload)
             return {
                 ...state,
                 cart: newCart

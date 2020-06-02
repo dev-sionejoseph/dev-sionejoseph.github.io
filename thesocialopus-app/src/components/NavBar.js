@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {Nav, NavItem, Navbar, NavbarBrand, NavbarToggler } from 'reactstrap'
-import { useSelector, connect } from 'react-redux';
+import { useSelector, connect, useDispatch } from 'react-redux';
 import { logOut } from '../redux/actions';
 
 function NavBar(props) {
     const auth = useSelector(state => state.auth.auth);
+    const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
 
-    const logout =()=>{
-        this.props.unAuth()
-    }
-
     let authButton = <NavItem>
-                        <Link to="/" onClick={logout}>Log Out</Link>
+                        <Link to="/" onClick={() => dispatch({type:"logged_out"})}>Log Out</Link>
                      </NavItem>
 
     if(auth === false){
