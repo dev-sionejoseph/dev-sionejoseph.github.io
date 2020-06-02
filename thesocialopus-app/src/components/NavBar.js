@@ -34,7 +34,7 @@ function NavBar(props) {
                     <Nav className="nav-links">
                         <NavItem>
                             <Link to="/">Gallery</Link>
-                        </NavItem>
+                        </NavItem> 
                         <NavItem>
                             <Link to="/profile">My Profile</Link>
                         </NavItem>

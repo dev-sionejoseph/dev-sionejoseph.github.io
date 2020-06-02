@@ -24,24 +24,25 @@ function SellerExhibit (props) {
             if(response !== null){
                console.log(`delete successful : ${response}`)
             } else {
-                this.setState({
-                    error:"Invalid credentials; Please try again."
-                })
+                console.log ("Invalid credentials; Please try again.")
             }
         });
     }
 
     const editProduct = (e) =>{
 
-        put.call(this,`/products/${e.target.id}`).then(response =>{
+        put.call(this,`/products/`,e.target.id, {
+             title: title,
+             details: details,
+             price: price,
+             image: image,
+            sellerID: user.id
+        }).then(response =>{
             if(response !== null){
                console.log(`delete successful : ${response}`)
-               this.props.history.push('/profile')
             } else {
-                this.setState({
-                    error:"Unable to save change; Please try again."
-                })
-            }
+                console.log("Unable to save change; Please try again.")
+                }
         });
         
     }
