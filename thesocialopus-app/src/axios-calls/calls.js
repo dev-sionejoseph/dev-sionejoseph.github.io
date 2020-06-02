@@ -16,7 +16,7 @@ export const get = (urlmap, id="") => {
 
 export const post = (urlmap, body) => {
 
-    return axios.post(`https://thesocialopus.herokuapp.com/${urlmap}`, 
+    return axios.post(`/${urlmap}`, 
         body   
     ).then(res => {
         console.log("getting through")

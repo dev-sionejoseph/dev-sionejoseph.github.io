@@ -40,7 +40,7 @@ class LogIn extends Component{
         console.log(this.props);
 
         get.call(this,`${role}/auth/${user}`).then(response =>{
-            if((response!== null)){
+            if(response!== null){
                 console.log("password worked")
                 this.props.setAuth()
                 this.props.setUser(response[0])
@@ -62,15 +62,18 @@ class LogIn extends Component{
             email: this.state.email,
             password: this.state.password
         }
-
+        let user = this.state.username
         let role = this.state.role
 
         post.call(this,`${role}/`, body).then(response =>{
             if(response !== null){
-                this.props.setAuth()
-                this.props.setUser(response[0])
-                this.props.setID(response[0].id)
-                this.props.setRole(this.state.role)
+                get.call(this,`${role}/auth/${user}`)
+                .then(response =>{
+                    this.props.setAuth()
+                    this.props.setUser(response[0])
+                    this.props.setID(response[0].id)
+                    this.props.setRole(role)
+                })
             } else {
                 this.setState({
                     error:"Invalid information; Please fill out form again."
