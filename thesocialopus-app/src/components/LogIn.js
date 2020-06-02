@@ -43,9 +43,9 @@ class LogIn extends Component{
             if((response!== null)){
                 console.log("password worked")
                 this.props.setAuth()
-                this.props.setUser(response)
+                this.props.setUser(response[0])
+                this.props.setID(response[0].id)
                 this.props.setRole(role)
-                console.log(this.props);
             } else {
                 this.setState({
                     error:"Invalid credentials; Please try again."
@@ -67,8 +67,10 @@ class LogIn extends Component{
 
         post.call(this,`/${role}/`, body).then(response =>{
             if(response !== null){
+                console.log(response.firstName)
                 this.props.setAuth()
-                this.props.setUser(response)
+                this.props.setUser(response[0])
+                this.props.setID(response[0].id)
                 this.props.setRole(this.state.role)
             } else {
                 this.setState({
@@ -201,6 +203,7 @@ class LogIn extends Component{
         return{
             setUser: (user) => { dispatch({type:"set_current_user", payload: user}) },
             setRole: (role) => { dispatch({type:"set_user_role", payload: role}) },
+            setID: (id) => { dispatch({type:"set_user_id", payload: id}) },
             setAuth: () => { dispatch({type:"logged_in"}) },
             unAuth: () => { dispatch({type:"logged_out"}) }
         }

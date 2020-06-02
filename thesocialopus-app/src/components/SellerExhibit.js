@@ -7,10 +7,11 @@ import { Button, Popover, PopoverHeader, PopoverBody, Input } from 'reactstrap';
 function SellerExhibit () {
 
     const user = useSelector(state => state.user)
+    const products = useSelector(state => state.user.currentUser.products)
     const [popoverOpen, setPopoverOpen] = useState(false);
     const toggle = () => setPopoverOpen(!popoverOpen);
 
-    let userID = this.props.user.id
+    // let userID = props.user.id
     
 
     const deleteProduct = (e) =>{
@@ -44,44 +45,17 @@ function SellerExhibit () {
     const addProduct = () =>{
 
     }
+
     
+
     const getProducts = () => {
+       
         let final;
-        console.log(this.props.userID)
+
         if ((user !== null) && (user.role === "sellers")){
             console.log(`current user: ${user.currentUser.firstName}`)
-            get.call(this,`/byseller/100`).then(response=>{
-                console.log(response)
-                if(response !== null){
-                    let products = response;
-                
-                    final = products.map(product => {
-                        return (
-                            <div className="editableArt">
-                                
-                                <div className="popoverDiv">
-                                    <Button id={product.id} 
-                                    className="edit-popover" type="button">
-                                            edit
-                                        </Button>
-                                    <Popover placement="bottom" isOpen={popoverOpen} target={product.id} toggle={toggle}>
-                                    <PopoverHeader>Edit</PopoverHeader>
-                                            <PopoverBody>
-                                                <Input className="edit-inputs" placeholder={product.title}></Input>
-                                                <Input className="edit-inputs" placeholder={product.details}></Input>
-                                                <Input className="edit-inputs" placeholder={product.price}></Input>
-                                                <Input className="edit-inputs" placeholder={product.image}></Input>
-                                                <Button className="submit-edit" onClick={editProduct}></Button>
-                                            </PopoverBody>
-                                        </Popover>
-                                </div>
-                                <ArtPiece type="seller" product={product} key={product.id}/>
-                            </div>
-                        )
-                    })
-                }
-            })
-            return final
+            
+            return `this is running ${final}`
         } else if (user.role === "sellers"){
             return "Add your first art piece!"
         } else {
@@ -89,9 +63,34 @@ function SellerExhibit () {
         }
     }
 
+    const productList = products.map(product => {
+
+        return (
+            <div className="editableArt">
+                <div className="popoverDiv">
+                    <Button id={`Popover-${product.id}`} 
+                    className="edit-popover" type="button">
+                            edit
+                        </Button>
+                    <Popover placement="bottom" isOpen={popoverOpen} target={`Popover-${product.id}`} toggle={toggle}>
+                    <PopoverHeader>Edit</PopoverHeader>
+                            <PopoverBody>
+                                <Input className="edit-inputs" placeholder={product.title}></Input>
+                                <Input className="edit-inputs" placeholder={product.details}></Input>
+                                <Input className="edit-inputs" placeholder={product.price}></Input>
+                                <Input className="edit-inputs" placeholder={product.image}></Input>
+                                <Button className="submit-edit" onClick={editProduct}></Button>
+                            </PopoverBody>
+                        </Popover>
+                </div>
+                <ArtPiece type="seller" product={product} key={product.id}/>
+            </div>
+        )
+    })
+
     return (
         <div className="exhibit-wrap">
-            {getProducts()}
+            {productList}}
         </div>
     )
    
@@ -101,7 +100,7 @@ const mapStateToProps = (state) => {
     return{
         auth: state.auth.auth,
         user: state.user.currentUser,
-        userID: state.user.currentUser.id,
+        userID: state.user.id,
         role: state.user.role
     }
 }

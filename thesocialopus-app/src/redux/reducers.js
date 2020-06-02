@@ -5,6 +5,7 @@ import { combineReducers } from 'redux'
 const INITIAL_USER ={
     currentUser: null,
     role: null,
+    id: null
 }
 
 const INITIAL_AUTH ={
@@ -26,6 +27,11 @@ const userReducer = (state=INITIAL_USER, action) => {
             return {
                 ...state,
                 role: action.payload
+            }
+        case userTypes.SET_USER_ID:
+            return {
+                ...state,
+                id: action.payload
             }
         default: return state;
         }

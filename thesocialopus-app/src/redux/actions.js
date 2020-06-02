@@ -19,7 +19,7 @@ export const logOut = () =>({
 export const userTypes = {
     SET_CURRENT_USER: "set_current_user",
     SET_USER_ROLE: "set_user_role",
-    // GET_USER_ID = "get_user_id",
+    SET_USER_ID : "set_user_id",
     // GET_USER_ROLE = "get_user_role"
 }
 
@@ -31,6 +31,11 @@ export const setCurrentUser = user => ({
 export const setRole = role => ({
     type: userTypes.SET_USER_ROLE,
     payload: role
+  });
+
+  export const setID = id => ({
+    type: userTypes.SET_USER_ID,
+    payload: id
   });
 
 //cart
