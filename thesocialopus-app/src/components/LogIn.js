@@ -65,7 +65,7 @@ class LogIn extends Component{
 
         let role = this.state.role
 
-        post.call(this,`/${role}/`, body).then(response =>{
+        post.call(this,`${role}/`, body).then(response =>{
             if(response !== null){
                 this.props.setAuth()
                 this.props.setUser(response[0])
