@@ -88,7 +88,7 @@ class LogIn extends Component{
     render() {
 
         return (
-
+            <div className="log-in-page">
             <div className="login-wrap">
                 <Nav tabs>
                     <NavItem>
@@ -186,6 +186,7 @@ class LogIn extends Component{
                     </TabPane>
                 </TabContent>
             </div> 
+            </div>
         )
     }
 }

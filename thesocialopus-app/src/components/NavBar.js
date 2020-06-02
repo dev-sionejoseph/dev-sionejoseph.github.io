@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {Nav, NavItem, Navbar, NavbarBrand, NavbarToggler } from 'reactstrap'
 import { useSelector, connect, useDispatch } from 'react-redux';
-import { logOut } from '../redux/actions';
 
 function NavBar(props) {
     const auth = useSelector(state => state.auth.auth);
@@ -10,13 +9,13 @@ function NavBar(props) {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
 
-    let authButton = <NavItem>
+    let authButton = <NavItem className="nav-links">
                         <Link to="/" onClick={() => dispatch({type:"logged_out"})}>Log Out</Link>
                      </NavItem>
 
     if(auth === false){
 
-        authButton = <NavItem>
+        authButton = <NavItem className="nav-links">
                         <Link to="/login">Log In</Link>
                     </NavItem>
 
@@ -28,11 +27,11 @@ function NavBar(props) {
                 <Navbar>
                     <NavbarBrand href="/">the Social Opus</NavbarBrand>
                     <NavbarToggler onClick={toggle} />
-                    <Nav className="nav-links">
-                        <NavItem>
+                    <Nav>
+                        <NavItem className="nav-links">
                             <Link to="/">Gallery</Link>
                         </NavItem> 
-                        <NavItem>
+                        <NavItem className="nav-links">
                             <Link to="/profile">My Profile</Link>
                         </NavItem>
                         {authButton}

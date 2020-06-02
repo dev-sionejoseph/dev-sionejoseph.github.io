@@ -1,14 +1,33 @@
 .App {
   text-align: center;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX20074271.jpg');
 }
 
+.nav-wrap-div{
+  background-color: rgba(0, 0, 0, 0.904);
+}
+.nav-links{
+  margin: 5px;
+}
+.log-in-page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
 .login-wrap{
   width: 30%;
   min-width: 300px;
+  background-color: royalblue;
 }
 
 .login-inputs{
   width: 50%;
-  background-color: aqua;
+}
+
+.modal-lauch-wrapper{
+  background-color: azure;
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { post, put, dlt } from '../axios-calls/calls';
 import ArtPiece from './ArtPiece';
 import { Button, Popover, PopoverHeader, PopoverBody, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
