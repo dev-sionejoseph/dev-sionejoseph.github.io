@@ -67,7 +67,6 @@ class LogIn extends Component{
 
         post.call(this,`/${role}/`, body).then(response =>{
             if(response !== null){
-                console.log(response.firstName)
                 this.props.setAuth()
                 this.props.setUser(response[0])
                 this.props.setID(response[0].id)
