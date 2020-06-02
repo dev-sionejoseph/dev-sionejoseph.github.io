@@ -26,13 +26,11 @@ export const post = (urlmap, body) => {
     
 }
 
-export const put = (urlmap, id , body) => {
+export const put = (url, body) => {
 
-    let fullURL = `/${urlmap}/${id}`
-
-    return axios.put(fullURL, {
+    return axios.put(url, 
         body   
-    }).then(res => {
+    ).then(res => {
         return res.data
     }).catch((error)=>{
         return null

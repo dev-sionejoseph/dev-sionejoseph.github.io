@@ -4,7 +4,7 @@ import { post, put, dlt } from '../axios-calls/calls';
 import ArtPiece from './ArtPiece';
 import { Button, Popover, PopoverHeader, PopoverBody, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-function SellerExhibit (props) {
+export default function SellerExhibit (props) {
 
     const user = useSelector(state => state.user)
     const products = useSelector(state => state.user.currentUser.products)
@@ -31,12 +31,12 @@ function SellerExhibit (props) {
 
     const editProduct = (e) =>{
 
-        put.call(this,`/products/`,e.target.id, {
+        put.call(this,`/products/${e.target.id}`, {
              title: title,
              details: details,
              price: price,
              image: image,
-            sellerID: user.id
+             sellerID: user.id
         }).then(response =>{
             if(response !== null){
                console.log(`delete successful : ${response}`)
@@ -44,7 +44,6 @@ function SellerExhibit (props) {
                 console.log("Unable to save change; Please try again.")
                 }
         });
-        
     }
 
     const addProduct = () =>{
@@ -54,7 +53,7 @@ function SellerExhibit (props) {
              details: details,
              price: price,
              image: image,
-            sellerID: user.id
+             sellerID: user.id
          })
 
     }
@@ -78,13 +77,13 @@ function SellerExhibit (props) {
                             edit
                         </Button>
                     <Popover placement="bottom" isOpen={popoverOpen} target={`Popover-${product.id}`} toggle={toggle}>
-                    <PopoverHeader>Edit</PopoverHeader>
+                    <PopoverHeader>Please fill out all fields</PopoverHeader>
                             <PopoverBody>
                                 <Input className="edit-inputs" placeholder={product.title} onChange={(event) => setTitle(event.target.value)}/>
                                 <Input className="edit-inputs" placeholder={product.details}onChange={(event) => setDetails(event.target.value)}/>
                                 <Input className="edit-inputs" placeholder={product.price}onChange={(event) => setPrice(event.target.value)}/>
                                 <Input className="edit-inputs" placeholder={product.image}onChange={(event) => setImage(event.target.value)}/>
-                                <Button className="submit-edit" onClick={editProduct}>Submit</Button>
+                                <Button className="submit-edit" onClick={editProduct} id={product.id}>Submit</Button>
                             </PopoverBody>
                         </Popover>
                         <Button className="delete" id={product.id} onClick={deleteProduct}>Delete</Button>
@@ -121,14 +120,4 @@ function SellerExhibit (props) {
    
 }
 
-const mapStateToProps = (state) => {
-    return{
-        auth: state.auth.auth,
-        user: state.user.currentUser,
-        userID: state.user.id,
-        role: state.user.role
-    }
-}
 
-
-export default connect(mapStateToProps)(SellerExhibit);

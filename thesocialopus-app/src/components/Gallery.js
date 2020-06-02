@@ -2,29 +2,46 @@ import React, { Component } from 'react'
 import { get } from '../axios-calls/calls';
 import ArtPiece from './ArtPiece';
 import { Button } from 'reactstrap';
+import { connect } from 'react-redux';
 // import Axios from 'axios';
 
 
-export default class Gallery extends Component {
+class Gallery extends Component {
     constructor(props){
         super(props);
 
         this.state={
-            cart:["test"],
+            cart:[],
             products:[]
         }
 
         this.addToCart = this.addToCart.bind(this);
+        props = this.props;
     }
 
     addToCart(e){
-        let newCartItem= e.target.value
+        let selectedItem= e.target.value
+        console.log(selectedItem)
+        let products = this.state.products
+        console.log(products[0].id)
+        let filteredProduct = products.filter(product => product.id == selectedItem)
+        console.log(filteredProduct)
+        let newCartItem = {
+            id: filteredProduct[0].id,
+            title: filteredProduct[0].title,
+            price: filteredProduct[0].price
+        }
+        this.setState(state => {
+            const cart = [newCartItem, ...this.state.cart]
+       
+            return {
+              cart,
+            };
+          });
+          this.props.addToCart(newCartItem)
+        };
 
-        this.setState({
-            cart: [newCartItem, ...this.state.cart]
-        })
-        console.log(this.state.cart);
-    }
+    
 
     async componentDidMount(){
         get.call(this,`products`).then(response =>{
@@ -40,7 +57,7 @@ export default class Gallery extends Component {
             return (
                 <div className="art-actions-wrap">
                     <div className="art-actions">
-                        <Button onClick={this.addToCart} value={product}>Add to Cart</Button>   
+                        <Button onClick={this.addToCart} value={product.id}>Add to Cart</Button>   
                     </div>
                     <ArtPiece key={product.id} product={ product } />
                 </div>
@@ -54,3 +71,12 @@ export default class Gallery extends Component {
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        addToCart: (cart) => {dispatch({type:"add_item", payload: cart}) },
+    }
+}
+
+
+export default connect(null, mapDispatchToProps)(Gallery);

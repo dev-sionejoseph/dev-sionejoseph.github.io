@@ -4,10 +4,6 @@ import { CardSubtitle, CardTitle, CardBody, CardImg, CardText, Card } from 'reac
 export default function ArtPiece(props){
     const {product} = props;
 
-    const addToCart =(e)=>{
-
-    }
-
     return (
         <div className="art-piece-wrapper" id={product.id}>
             <Card>
