@@ -20,7 +20,6 @@ export const post = (urlmap, body) => {
         body   
     ).then(res => {
         console.log("getting through")
-        return res.data
     }).catch((error)=>{
         return null
    });
