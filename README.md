@@ -1,5 +1,7 @@
 # the Social Opus
 An E-Commerce web application where artist can host their greatests works in one convenient location, easily accessible . 
+[Here is the website, deployed with Heroku:](http://socialopus.herokuapp.com/)
+
 
 ## Wireframe:
 ![wireframe](/wireframe/Gallery-social.png)
@@ -13,6 +15,7 @@ As a creative, I am acutely aware of how hard it can be to get your work in fron
 ### Target End User:
 
 -Artists who are tired of the overhead of other arts/craft e-commerce sites.
+
 -Art lovers looking to acquire new pieces from artists who may get lost in the noise on other platforms.
 
 ### Languages & Technologies Used:
