@@ -37,7 +37,10 @@ You will need the following things properly installed on your computer.
 - Redux
 
 ### RestAPI's used:
-- https://thesocialopus.herokuapp.com
+- https://thesocialopus.herokuapp.com/sellers/
+- https://thesocialopus.herokuapp.com/buyers/
+- https://thesocialopus.herokuapp.com/products/
+
 
 ### Current Issues:
 - CORS issue
