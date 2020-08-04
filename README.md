@@ -1,6 +1,6 @@
 # the Social Opus
 An E-Commerce web application where artist can host their greatests works in one convenient location, easily accessible . 
-[Here is the website, deployed with Heroku:](http://socialopus.herokuapp.com/)
+
 
 
 ## Wireframe:
